@@ -28,13 +28,14 @@ mongoose.connect(dbURI,{useNewUrlParser: true})
 //set a engine
 app.set('view engine', 'ejs')
 
+// precisso ver essas configuraçõe depois pois não tenho dominio sobre elas
 if(!isProduction)app.use(morgan("dev"))
 app.use(cors())
 app.disable('x-powered-by')
 app.use(compression())
 
-app.use(bodyParser.urlencoded({extended:false, limit:1.5*1024*1024}))
-app.use(bodyParser.json({ limit:1.5*1024*1024}))
+// configura o JSON
+app.use(express.json())
 
 require('./models')
 app.use('/',require('./routes'))
