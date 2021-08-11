@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const uniqueValidator = require('mongoose-unique-validator')
 const crypto = require('crypto')
 const secret = require('../config').secret
-const { timeStamp } = require('console')
+
 
 Schema = mongoose.Schema
 
@@ -18,7 +18,8 @@ const UsuarioSchema = new mongoose.Schema({
         index: true,
         lowercase:true,
         required: [true, 'não pode ser vazio'],
-        match:[/\s+@\s+\.\s/, 'é invalido']
+        match:[/\S+@\S+\.\S+/, 'é invalido']
+       
     },
     loja:{
         type: Schema.Types.ObjectId,
@@ -27,7 +28,7 @@ const UsuarioSchema = new mongoose.Schema({
     },
     permissao:{
         type: Array,
-        dafault: ['cliente']
+        default: ["cliente"]
     },
     hash: String,
     salt:String,
@@ -39,7 +40,7 @@ const UsuarioSchema = new mongoose.Schema({
         default:{}
     }
 
-}, {timeStamp:true})
+}, {timestamps:true})
 
 // #############################################################################################
 
@@ -51,7 +52,7 @@ UsuarioSchema.methods.setSenha = function(password){
 }
 
 UsuarioSchema.methods.validarSenha = function(password){
-       this.hash = crypto.pbkdf2Sync(password,this.salt, 10000,512, "sha512").toString("hex")
+       const hash = crypto.pbkdf2Sync(password,this.salt, 10000,512, "sha512").toString("hex")
        return hash === this.hash
 }
 
@@ -62,10 +63,10 @@ UsuarioSchema.methods.gerarToken = function(){
     
     return jwt.sign({
         id: this._id,
-        email: this.email,
         nome: this.nome,
+        email: this.email,
         exp: parseFloat(exp.getTime() /1000, 10)
-    })
+    }, secret)
 
 }
 UsuarioSchema.methods.enviarAuthJSON = function(){
@@ -97,4 +98,4 @@ UsuarioSchema.methods.finalizarTokenRecuperacaoSenha = function(){
     return this.recovery
  
  }
- module.exports = mongoose.model('Usuarios', UsuarioSchema)
+ module.exports = mongoose.model('Usuario', UsuarioSchema)

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --timeout 200 --exit",
-    "dev": "NODE_ENV=development nodemon server.js",
+    "dev": "nodemon server.js",
     "build": "NODE_ENV=production pm2 start server.js --name=\"ecommerce-api\""
   },
   "author": "ernandes",
@@ -22,7 +22,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.11",
     "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "nodemailer": "^6.4.17"
+    "nodemailer": "^6.4.17",
+    "nodemon": "^2.0.12"
   }
 }

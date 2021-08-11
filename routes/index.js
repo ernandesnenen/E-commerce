@@ -1,5 +1,6 @@
 const router = require("express").Router()
 
+router.get('/', (req, res, next)=>{ res.send({ok:true})})
 router.use('/v1/api', require('./api/v1'))
 
 // ver melho esse miduer depois pois há coisa para entender aqui
@@ -12,6 +13,6 @@ router.use((err, req, res, next)=>{
             },{})
         })
     }
+    return next(err)
 })
-router.get('/', (req, res, next)=>{ res.send({ok:true})})
 module.exports = router

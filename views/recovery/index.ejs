@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+   <% include('../partials/header') %>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-3">
+                <h2>Recuperar Senha</h2>
+                <hr><br>
+
+                <%if(success){%>
+                    <div class="alert alert-success">
+                        <%= success %>
+                    </div>
+                <% } %>
+
+                <%if(error){%>
+                    <div class="alert alert-danger">
+                        <%= error %>
+                    </div>
+                <% } %>
+
+                <p>Digite seu email para receber as instruçõe para recuperara sua senha </p>
+
+                <form action="/v1/api/usuarios/recuperar-senha" method="POST">
+                    <div class="form-group">
+                        <input
+                        type="email"
+                        name="email"
+                        
+                        class="form-control"
+                        placeholder="Digite seu email">
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Recuperar senha
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
 {
-    "dbTest":"mongodb://localhost:27017/ecommecer-api-test",
+    "dbTest":"mongodb://ernandes:144733@localhost:27017/ecommecer-api-test",
     "dbProduction":"mongodb://localhost:27017/ecommecer-api"
 }

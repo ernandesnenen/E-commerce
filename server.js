@@ -14,7 +14,7 @@ const app = express()
 
 //ambiente
 const isProduction = process.env.NODE_ENV === 'production'
-const PORT = process.env.PORT || 30000
+const PORT = process.env.PORT || 4000
 
 // arquivos staticos
 app.use("/public", express.static(__dirname+"/public"))
@@ -23,7 +23,7 @@ app.use("/public/images", express.static(__dirname+"/public/images"))
 // setup do banco de dados
 const dbs = require('./config/database.json')
 const dbURI = isProduction ? dbs.dbProduction : dbs.dbTest
-mongoose.connect(dbURI,{useNewUrlParser: true})
+mongoose.connect(dbURI,{useNewUrlParser: true , useUnifiedTopology: true})
 
 //set a engine
 app.set('view engine', 'ejs')
@@ -38,12 +38,12 @@ app.use(compression())
 app.use(express.json())
 
 require('./models')
-app.use('/',require('./routes'))
+app.use('/', require('./routes'))
 
 app.use((req, res, next)=>{
     const err = new Error("Not Foud")
     err.status = 404
-    next(err)
+    next(err.message)
 
 })
 app.use((err, req, res, next)=>{
@@ -54,6 +54,6 @@ app.use((err, req, res, next)=>{
 
 app.listen(PORT, (err)=>{
     if(err) throw err
-    console.log(`servidor rodando na localhost://${PORT}`)
+    console.log(`servidor rodando na localhost:/${PORT}`)
 
 })

@@ -1,0 +1,2 @@
+require('./usuario')
+require('./loja')
